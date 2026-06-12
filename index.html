@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Percorso Moto Salaria - 14 giugno</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQq4pLkkZPLwI2Ne4xR+5lVD70pi5c=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <style>
+    :root { --bg:#0f172a; --card:#ffffff; --text:#172033; --muted:#64748b; --accent:#0ea5e9; --line:#e2e8f0; --orange:#f97316; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; background:#eef4f8; color:var(--text); }
+    header { background:linear-gradient(135deg,#0f172a,#1e3a8a); color:white; padding:28px 18px; text-align:center; }
+    header h1 { margin:0; font-size:28px; }
+    header p { margin:10px auto 0; max-width:760px; color:#dbeafe; }
+    .wrap { max-width:1120px; margin:0 auto; padding:18px; }
+    .card { background:white; border-radius:18px; padding:18px; margin:16px 0; box-shadow:0 10px 25px rgba(15,23,42,.10); }
+    .grid { display:grid; grid-template-columns:1.4fr .8fr; gap:16px; align-items:stretch; }
+    #map { width:100%; min-height:560px; border-radius:16px; border:1px solid var(--line); }
+    .btn { display:inline-block; background:#2563eb; color:#fff; text-decoration:none; padding:12px 16px; border-radius:12px; font-weight:700; margin:6px 6px 6px 0; }
+    .btn.alt { background:#111827; }
+    .timeline { display:flex; flex-direction:column; gap:12px; }
+    .stop { border:1px solid var(--line); border-left:6px solid var(--accent); border-radius:14px; padding:12px; background:#f8fafc; }
+    .stop strong { display:block; font-size:17px; }
+    .time { color:#0f766e; font-weight:800; }
+    .photo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    figure { margin:0; border-radius:16px; overflow:hidden; background:#f8fafc; border:1px solid var(--line); }
+    figure img { width:100%; height:210px; object-fit:cover; display:block; }
+    figcaption { padding:12px; font-size:14px; color:#334155; }
+    .zoom-card { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .small-map { min-height:310px; border-radius:16px; border:1px solid var(--line); }
+    .note { color:var(--muted); font-size:14px; line-height:1.45; }
+    .fallback { background:#fff7ed; border:1px solid #fed7aa; color:#7c2d12; padding:12px; border-radius:14px; margin-top:10px; }
+    @media(max-width:850px){ .grid,.photo-grid,.zoom-card{grid-template-columns:1fr;} #map{min-height:480px;} figure img{height:230px;} }
+  </style>
+</head>
+<body>
+<header>
+  <h1>🏍️ Percorso Moto Salaria — Domenica 14 giugno</h1>
+  <p>Partenza 7:30 · 1ª tappa 8:00 · 2ª tappa 9:30 · arrivo 11:00 — percorso con tappe, mappa stradale e punti panoramici.</p>
+</header>
+<div class="wrap">
+  <section class="card">
+    <a class="btn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=41.9954429,12.6659791&waypoints=BMW%20Salaria%7CEWA%20Salaria&destination=Ristorante%20La%20Valle%20Amatrice&travelmode=driving">Apri percorso reale in Google Maps</a>
+    <a class="btn alt" target="_blank" href="https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=41.9954%2C12.6660%3B42.6280%2C13.2900">Apri zona su OpenStreetMap</a>
+    <div class="fallback">Se la linea del percorso non coincide al 100%, usa il pulsante Google Maps: è il riferimento per la navigazione reale. Questa pagina serve come scheda visuale del giro.</div>
+  </section>
+
+  <section class="grid">
+    <div class="card"><div id="map"></div></div>
+    <div class="card">
+      <h2>📍 Tappe</h2>
+      <div class="timeline">
+        <div class="stop"><span class="time">07:30</span><strong>CASA</strong><span>Partenza.</span></div>
+        <div class="stop"><span class="time">08:00</span><strong>BMW SALARIA</strong><span>Prima tappa / incontro.</span></div>
+        <div class="stop"><span class="time">09:30</span><strong>EWA SALARIA</strong><span>Seconda tappa.</span></div>
+        <div class="stop"><span class="time">11:00</span><strong>RISTORANTE LA VALLE</strong><span>Terza e ultima tappa, zona Amatrice.</span></div>
+      </div>
+      <p class="note">Coordinate “CASA” impostate dal link precedente: 41.9954429, 12.6659791. BMW/EWA sono posizionati sulla Salaria in modo indicativo: per navigare usa Google Maps.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>🏔️ Zoom paesaggistici</h2>
+    <div class="zoom-card">
+      <div><h3>Gole del Velino / Antrodoco</h3><div id="zoom1" class="small-map"></div></div>
+      <div><h3>Amatrice / Monti della Laga</h3><div id="zoom2" class="small-map"></div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>📸 Punti panoramici e montani</h2>
+    <div class="photo-grid">
+      <figure>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Monte_Terminillo.jpg/1024px-Monte_Terminillo.jpg" alt="Monte Terminillo">
+        <figcaption><strong>Monte Terminillo</strong><br>Riferimento montano del tratto reatino.</figcaption>
+      </figure>
+      <figure>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Amatrice_panorama.jpg/1024px-Amatrice_panorama.jpg" alt="Panorama di Amatrice">
+        <figcaption><strong>Amatrice</strong><br>Paesaggio appenninico verso la tappa finale.</figcaption>
+      </figure>
+      <figure>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Monti_della_Laga.jpg/1024px-Monti_della_Laga.jpg" alt="Monti della Laga">
+        <figcaption><strong>Monti della Laga</strong><br>Scenario montano più famoso vicino all’arrivo.</figcaption>
+      </figure>
+    </div>
+  </section>
+</div>
+<script>
+const stops = [
+  {name:'CASA', time:'07:30', lat:41.9954429, lon:12.6659791},
+  {name:'BMW SALARIA', time:'08:00', lat:42.00175, lon:12.65890},
+  {name:'EWA SALARIA', time:'09:30', lat:42.05290, lon:12.61290},
+  {name:'RISTORANTE LA VALLE', time:'11:00', lat:42.62610, lon:13.29020}
+];
+function addTiles(map){
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+}
+const map = L.map('map').setView([42.29,12.95], 9); addTiles(map);
+stops.forEach(s=>L.marker([s.lat,s.lon]).addTo(map).bindPopup(`<b>${s.time} — ${s.name}</b>`));
+const route = stops.map(s=>[s.lat,s.lon]);
+L.polyline(route, {weight:5}).addTo(map);
+map.fitBounds(route, {padding:[35,35]});
+const z1=L.map('zoom1').setView([42.405,13.08],11); addTiles(z1); L.marker([42.416,13.08]).addTo(z1).bindPopup('Gole del Velino / Antrodoco');
+const z2=L.map('zoom2').setView([42.63,13.29],11); addTiles(z2); L.marker([42.626,13.290]).addTo(z2).bindPopup('Amatrice / Ristorante La Valle');
+</script>
+</body>
+</html>
