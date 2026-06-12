@@ -13,6 +13,7 @@
   --red:#dc2626;
   --blue:#2563eb;
   --border:#e5e7eb;
+  --orange:#ea580c;
 }
 * { box-sizing:border-box; }
 body {
@@ -22,7 +23,7 @@ body {
   color:var(--text);
 }
 .hero {
-  padding:34px 18px 26px;
+  padding:42px 18px 34px;
   color:white;
   background:
     linear-gradient(135deg, rgba(17,24,39,.94), rgba(31,41,55,.86)),
@@ -31,23 +32,17 @@ body {
   background-position:center;
 }
 .hero h1 {
-  font-size:34px;
+  font-size:36px;
   line-height:1.05;
-  margin:0 0 12px;
+  margin:0;
   letter-spacing:.3px;
   text-transform:uppercase;
-}
-.hero p {
-  margin:0;
-  color:#e5e7eb;
-  font-size:16px;
-  line-height:1.35;
 }
 .buttons {
   display:flex;
   flex-direction:column;
   gap:12px;
-  margin-top:22px;
+  margin-top:24px;
 }
 .btn {
   display:block;
@@ -66,7 +61,7 @@ main {
   margin:0 auto;
   padding:14px;
 }
-.map-card, .card, .photo-card {
+.map-card, .card, .photo-card, .biker-card {
   background:var(--card);
   border-radius:20px;
   overflow:hidden;
@@ -97,6 +92,8 @@ main {
 h2 {
   margin:0 0 14px;
   font-size:24px;
+  text-transform:uppercase;
+  letter-spacing:.4px;
 }
 .stop {
   display:grid;
@@ -142,10 +139,16 @@ h2 {
   padding:14px;
   line-height:1.35;
 }
-.photos {
+.photos, .biker-grid {
   display:grid;
   grid-template-columns:1fr;
   gap:18px;
+}
+.section-title {
+  margin:24px 0 12px;
+  font-size:26px;
+  font-weight:900;
+  text-transform:uppercase;
 }
 .photo-link {
   display:block;
@@ -174,39 +177,56 @@ h2 {
 .noimg .noimg-text {
   display:flex;
 }
-.photo-body {
+.photo-body, .biker-card {
   padding:16px 18px 18px;
 }
-.photo-body h3 {
+.photo-body h3, .biker-card h3 {
   margin:0 0 8px;
   font-size:22px;
 }
-.photo-body p {
+.photo-body p, .biker-card p {
   margin:0 0 14px;
   color:#4b5563;
   font-size:16px;
   line-height:1.4;
 }
-.photo-body a {
+.photo-body a, .biker-card a {
   color:var(--blue);
   text-decoration:none;
   font-weight:800;
   font-size:16px;
 }
+.biker-card {
+  position:relative;
+  border-left:6px solid var(--orange);
+}
+.biker-tag {
+  display:inline-block;
+  margin-bottom:10px;
+  background:#fff7ed;
+  color:#9a3412;
+  border:1px solid #fed7aa;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:900;
+  text-transform:uppercase;
+}
 .footer-space { height:18px; }
 @media (min-width:800px) {
-  .hero { padding:42px 30px 34px; }
-  .hero h1 { font-size:46px; }
+  .hero { padding:52px 30px 42px; }
+  .hero h1 { font-size:52px; }
   .buttons { flex-direction:row; }
   .btn { width:auto; min-width:280px; }
   .map-wrap { height:520px; }
   .photos { grid-template-columns:repeat(3,1fr); }
+  .biker-grid { grid-template-columns:repeat(2,1fr); }
   .photo-link img { height:190px; }
 }
 @media (max-width:430px) {
   main { padding:12px 10px; }
-  .hero { padding-top:30px; }
-  .hero h1 { font-size:32px; }
+  .hero { padding-top:44px; }
+  .hero h1 { font-size:35px; }
   .map-wrap { height:360px; }
   .photo-link img { height:225px; }
 }
@@ -215,7 +235,6 @@ h2 {
 <body>
 <section class="hero">
   <h1>30ª MOTOAMATRICIANA</h1>
-  <p>Incontro 8:00 a BMW Salaria · 2ª tappa 9:30 a EWA Salaria · arrivo 11:00 al Ristorante La Valle</p>
   <div class="buttons">
     <a class="btn red" href="https://www.google.com/maps/dir/?api=1&origin=BMW%20Salaria%20Roma&waypoints=EWA%20Salaria%20Rieti&destination=Ristorante%20La%20Valle%20Amatrice&travelmode=driving" target="_blank">Apri percorso reale in Google Maps</a>
     <a class="btn blue" href="#foto">Vedi punti panoramici</a>
@@ -270,15 +289,16 @@ h2 {
     <h2>🧭 Note percorso</h2>
     <p class="route-text">
       Il percorso parte da BMW Salaria e segue la direttrice della Salaria verso Rieti, Antrodoco e Amatrice.
-      La parte più scenica arriva dopo Rieti: Gole del Velino, area di Antrodoco,
-      Lago di Scandarello e panorami sui Monti della Laga.
+      La parte più interessante per il gruppo arriva dopo Rieti, con tratti guidati, curve progressive,
+      paesaggi montani e arrivo panoramico verso Amatrice.
     </p>
     <div class="warning">
       Prima di partire apri Google Maps dal pulsante rosso e salva il percorso: in zona montagna la copertura dati può calare.
     </div>
   </section>
 
-  <section id="foto" class="photos">
+  <h2 id="foto" class="section-title">📸 Da fotografare</h2>
+  <section class="photos">
     
       <article class="photo-card">
         <a href="https://commons.wikimedia.org/wiki/File:Summer%27s_rainbow_at_Antrodoco_(Italy)_(6100628169).jpg" target="_blank" class="photo-link">
@@ -320,6 +340,40 @@ h2 {
       </article>
     
   </section>
+
+  <h2 class="section-title">🏍️ Per il biker</h2>
+  <section class="biker-grid">
+    
+      <article class="biker-card">
+        <div class="biker-tag">Scorrevole</div>
+        <h3>Salaria dopo Rieti</h3>
+        <p>Tratto scorrevole e piacevole, con rettilinei aperti e paesaggio che inizia a diventare più montano.</p>
+        <a href="https://www.google.com/maps/search/Salaria+dopo+Rieti" target="_blank">Apri tratto su Google Maps</a>
+      </article>
+    
+      <article class="biker-card">
+        <div class="biker-tag">Curve</div>
+        <h3>Rieti → Antrodoco</h3>
+        <p>Uno dei tratti più interessanti per la moto: curve progressive, valle stretta e guida fluida.</p>
+        <a href="https://www.google.com/maps/dir/Rieti/Antrodoco" target="_blank">Apri tratto su Google Maps</a>
+      </article>
+    
+      <article class="biker-card">
+        <div class="biker-tag">Tecnico</div>
+        <h3>Gole del Velino</h3>
+        <p>Passaggio scenico e divertente: curve, pareti rocciose e atmosfera da strada appenninica.</p>
+        <a href="https://www.google.com/maps/search/Gole+del+Velino+Antrodoco" target="_blank">Apri tratto su Google Maps</a>
+      </article>
+    
+      <article class="biker-card">
+        <div class="biker-tag">Panoramico</div>
+        <h3>Verso Amatrice</h3>
+        <p>Ultima parte più panoramica: strada aperta, vista sui rilievi e arrivo perfetto per il gruppo.</p>
+        <a href="https://www.google.com/maps/dir/Antrodoco/Amatrice" target="_blank">Apri tratto su Google Maps</a>
+      </article>
+    
+  </section>
+
   <div class="footer-space"></div>
 </main>
 </body>
