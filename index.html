@@ -1,108 +1,281 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Percorso Moto Salaria - 14 giugno</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQq4pLkkZPLwI2Ne4xR+5lVD70pi5c=" crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Percorso moto Salaria - 14 giugno</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIINfQ5Xu6hNsYnGEJrj/QA8LdN1BJ0BrA=" crossorigin="">
   <style>
-    :root { --bg:#0f172a; --card:#ffffff; --text:#172033; --muted:#64748b; --accent:#0ea5e9; --line:#e2e8f0; --orange:#f97316; }
-    * { box-sizing:border-box; }
-    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; background:#eef4f8; color:var(--text); }
-    header { background:linear-gradient(135deg,#0f172a,#1e3a8a); color:white; padding:28px 18px; text-align:center; }
-    header h1 { margin:0; font-size:28px; }
-    header p { margin:10px auto 0; max-width:760px; color:#dbeafe; }
-    .wrap { max-width:1120px; margin:0 auto; padding:18px; }
-    .card { background:white; border-radius:18px; padding:18px; margin:16px 0; box-shadow:0 10px 25px rgba(15,23,42,.10); }
-    .grid { display:grid; grid-template-columns:1.4fr .8fr; gap:16px; align-items:stretch; }
-    #map { width:100%; min-height:560px; border-radius:16px; border:1px solid var(--line); }
-    .btn { display:inline-block; background:#2563eb; color:#fff; text-decoration:none; padding:12px 16px; border-radius:12px; font-weight:700; margin:6px 6px 6px 0; }
-    .btn.alt { background:#111827; }
-    .timeline { display:flex; flex-direction:column; gap:12px; }
-    .stop { border:1px solid var(--line); border-left:6px solid var(--accent); border-radius:14px; padding:12px; background:#f8fafc; }
-    .stop strong { display:block; font-size:17px; }
-    .time { color:#0f766e; font-weight:800; }
-    .photo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-    figure { margin:0; border-radius:16px; overflow:hidden; background:#f8fafc; border:1px solid var(--line); }
-    figure img { width:100%; height:210px; object-fit:cover; display:block; }
-    figcaption { padding:12px; font-size:14px; color:#334155; }
-    .zoom-card { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .small-map { min-height:310px; border-radius:16px; border:1px solid var(--line); }
-    .note { color:var(--muted); font-size:14px; line-height:1.45; }
-    .fallback { background:#fff7ed; border:1px solid #fed7aa; color:#7c2d12; padding:12px; border-radius:14px; margin-top:10px; }
-    @media(max-width:850px){ .grid,.photo-grid,.zoom-card{grid-template-columns:1fr;} #map{min-height:480px;} figure img{height:230px;} }
+    :root {
+      --bg: #111827;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #dc2626;
+      --accent2: #2563eb;
+      --line: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #f3f4f6;
+      color: var(--text);
+    }
+    header {
+      background: linear-gradient(135deg, #111827, #374151);
+      color: white;
+      padding: 22px 16px 18px;
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+    header p { margin: 0; color: #d1d5db; font-size: 14px; }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    .topbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: #fff;
+      background: var(--accent2);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .btn.red { background: var(--accent); }
+    main {
+      max-width: 1100px;
+      margin: -8px auto 30px;
+      padding: 0 12px 24px;
+    }
+    .map-card {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.08);
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    #map {
+      height: min(62vh, 620px);
+      min-height: 420px;
+      width: 100%;
+      background: #dbeafe;
+    }
+    .hint {
+      padding: 10px 12px;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      box-shadow: 0 6px 18px rgba(0,0,0,.05);
+    }
+    h2 { font-size: 18px; margin: 0 0 10px; }
+    .stop {
+      display: grid;
+      grid-template-columns: 62px 1fr;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .stop:last-child { border-bottom: 0; }
+    .time {
+      background: #111827;
+      color: white;
+      border-radius: 12px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+    .stop b { display: block; font-size: 15px; }
+    .stop span { color: var(--muted); font-size: 13px; }
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .photo {
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 6px 18px rgba(0,0,0,.05);
+    }
+    .photo .img {
+      height: 160px;
+      background: linear-gradient(135deg, #a7f3d0, #60a5fa);
+      position: relative;
+      overflow: hidden;
+    }
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo img:before { content: ""; }
+    .photo .body { padding: 12px; }
+    .photo h3 { margin: 0 0 6px; font-size: 16px; }
+    .photo p { margin: 0 0 10px; color: var(--muted); font-size: 13px; line-height: 1.35; }
+    .photo a { color: var(--accent2); font-weight: 700; text-decoration: none; font-size: 13px; }
+    .fallback {
+      margin-top: 14px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #7c2d12;
+      border-radius: 16px;
+      padding: 12px;
+      font-size: 14px;
+    }
+    .leaflet-popup-content { margin: 10px 12px; }
+    .popup-title { font-weight: 800; font-size: 14px; }
+    .popup-time { color: #dc2626; font-weight: 800; }
+    .popup-img { width: 180px; height: 95px; object-fit: cover; border-radius: 10px; margin-top: 8px; display:block; }
+    @media (max-width: 760px) {
+      header h1 { font-size: 21px; }
+      main { padding-left: 8px; padding-right: 8px; }
+      #map { height: 52vh; min-height: 360px; }
+      .grid { grid-template-columns: 1fr; }
+      .photos { grid-template-columns: 1fr; }
+      .photo .img { height: 190px; }
+      .btn { width: 100%; text-align: center; }
+    }
   </style>
 </head>
 <body>
 <header>
-  <h1>🏍️ Percorso Moto Salaria — Domenica 14 giugno</h1>
-  <p>Partenza 7:30 · 1ª tappa 8:00 · 2ª tappa 9:30 · arrivo 11:00 — percorso con tappe, mappa stradale e punti panoramici.</p>
+  <div class="wrap">
+    <h1>🏍️ Percorso moto Salaria — Domenica 14 giugno</h1>
+    <p>Partenza 7:30 da Fonte Nuova · 1ª tappa 8:00 · 2ª tappa 9:30 · arrivo 11:00 ad Amatrice</p>
+    <div class="topbar">
+      <a class="btn red" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Via%20Palombarese%20746%20Fonte%20Nuova%20RM&waypoints=BMW%20Roma%20Via%20Salaria%201268%7CEWA%20Salaria%20Rieti&destination=Ristorante%20La%20Valle%20Via%20Salaria%20128%20Amatrice&travelmode=driving">Apri percorso reale in Google Maps</a>
+      <a class="btn" href="#foto">Vedi punti panoramici</a>
+    </div>
+  </div>
 </header>
-<div class="wrap">
-  <section class="card">
-    <a class="btn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=41.9954429,12.6659791&waypoints=BMW%20Salaria%7CEWA%20Salaria&destination=Ristorante%20La%20Valle%20Amatrice&travelmode=driving">Apri percorso reale in Google Maps</a>
-    <a class="btn alt" target="_blank" href="https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=41.9954%2C12.6660%3B42.6280%2C13.2900">Apri zona su OpenStreetMap</a>
-    <div class="fallback">Se la linea del percorso non coincide al 100%, usa il pulsante Google Maps: è il riferimento per la navigazione reale. Questa pagina serve come scheda visuale del giro.</div>
+
+<main>
+  <section class="map-card">
+    <div id="map"></div>
+    <div class="hint">La mappa usa OpenStreetMap. Se il percorso non viene tracciato subito, premi il pulsante rosso “Apri percorso reale in Google Maps”.</div>
   </section>
 
   <section class="grid">
-    <div class="card"><div id="map"></div></div>
     <div class="card">
-      <h2>📍 Tappe</h2>
-      <div class="timeline">
-        <div class="stop"><span class="time">07:30</span><strong>CASA</strong><span>Partenza.</span></div>
-        <div class="stop"><span class="time">08:00</span><strong>BMW SALARIA</strong><span>Prima tappa / incontro.</span></div>
-        <div class="stop"><span class="time">09:30</span><strong>EWA SALARIA</strong><span>Seconda tappa.</span></div>
-        <div class="stop"><span class="time">11:00</span><strong>RISTORANTE LA VALLE</strong><span>Terza e ultima tappa, zona Amatrice.</span></div>
+      <h2>📍 Tappe e orari</h2>
+      <div class="stop"><div class="time">7:30</div><div><b>CASA</b><span>Via Palombarese, 746, Fonte Nuova (RM)</span></div></div><div class="stop"><div class="time">8:00</div><div><b>BMW SALARIA</b><span>Via Salaria, 1268, Roma</span></div></div><div class="stop"><div class="time">9:30</div><div><b>EWA SALARIA</b><span>Via Salaria per Roma, Rieti</span></div></div><div class="stop"><div class="time">11:00</div><div><b>RISTORANTE LA VALLE</b><span>Via Salaria, 128, Località Torrita, Amatrice</span></div></div>
+    </div>
+    <div class="card">
+      <h2>🧭 Note percorso</h2>
+      <p style="margin-top:0;color:#4b5563;line-height:1.45">
+        Percorso pensato per seguire la direttrice della Salaria verso Rieti, Antrodoco e Amatrice.
+        La parte più scenica arriva dopo Rieti: Gole del Velino, salita verso l’area di Amatrice e panorami sui Monti della Laga.
+      </p>
+      <div class="fallback">
+        Suggerimento pratico: prima di partire apri Google Maps dal pulsante rosso e salva il percorso, così lo hai pronto anche se la copertura dati cala in zona montagna.
       </div>
-      <p class="note">Coordinate “CASA” impostate dal link precedente: 41.9954429, 12.6659791. BMW/EWA sono posizionati sulla Salaria in modo indicativo: per navigare usa Google Maps.</p>
     </div>
   </section>
 
-  <section class="card">
-    <h2>🏔️ Zoom paesaggistici</h2>
-    <div class="zoom-card">
-      <div><h3>Gole del Velino / Antrodoco</h3><div id="zoom1" class="small-map"></div></div>
-      <div><h3>Amatrice / Monti della Laga</h3><div id="zoom2" class="small-map"></div></div>
-    </div>
+  <section id="foto" class="photos">
+    
+    <article class="photo">
+      <div class="img"><img src="https://www.lazionascosto.it/wp-content/uploads/2015/09/gole-del-velino.jpg" alt="Gole del Velino / Antrodoco" onerror="this.style.display='none'"></div>
+      <div class="body">
+        <h3>Gole del Velino / Antrodoco</h3>
+        <p>Il tratto più bello e montano della Salaria: curve, valle stretta e pareti verdi.</p>
+        <a target="_blank" href="https://www.google.com/maps/search/Gole+del+Velino+Antrodoco">Apri su Google Maps</a>
+      </div>
+    </article>
+    <article class="photo">
+      <div class="img"><img src="https://www.lazionascosto.it/wp-content/uploads/2016/04/lago-di-scandarello.jpg" alt="Lago di Scandarello" onerror="this.style.display='none'"></div>
+      <div class="body">
+        <h3>Lago di Scandarello</h3>
+        <p>Vista scenica vicino Amatrice, con Monti della Laga sullo sfondo.</p>
+        <a target="_blank" href="https://www.google.com/maps/search/Lago+di+Scandarello">Apri su Google Maps</a>
+      </div>
+    </article>
+    <article class="photo">
+      <div class="img"><img src="https://www.visitlazio.com/wp-content/uploads/2022/05/Parco-nazionale-del-Gran-Sasso-e-Monti-della-Laga-ad-Accumuli-ed-Amatrice.jpg" alt="Monti della Laga / Amatrice" onerror="this.style.display='none'"></div>
+      <div class="body">
+        <h3>Monti della Laga / Amatrice</h3>
+        <p>Arrivo in zona montana: panorama aperto e strade perfette da moto.</p>
+        <a target="_blank" href="https://www.google.com/maps/search/Monti+della+Laga+Amatrice">Apri su Google Maps</a>
+      </div>
+    </article>
   </section>
+</main>
 
-  <section class="card">
-    <h2>📸 Punti panoramici e montani</h2>
-    <div class="photo-grid">
-      <figure>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Monte_Terminillo.jpg/1024px-Monte_Terminillo.jpg" alt="Monte Terminillo">
-        <figcaption><strong>Monte Terminillo</strong><br>Riferimento montano del tratto reatino.</figcaption>
-      </figure>
-      <figure>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Amatrice_panorama.jpg/1024px-Amatrice_panorama.jpg" alt="Panorama di Amatrice">
-        <figcaption><strong>Amatrice</strong><br>Paesaggio appenninico verso la tappa finale.</figcaption>
-      </figure>
-      <figure>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Monti_della_Laga.jpg/1024px-Monti_della_Laga.jpg" alt="Monti della Laga">
-        <figcaption><strong>Monti della Laga</strong><br>Scenario montano più famoso vicino all’arrivo.</figcaption>
-      </figure>
-    </div>
-  </section>
-</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
-const stops = [
-  {name:'CASA', time:'07:30', lat:41.9954429, lon:12.6659791},
-  {name:'BMW SALARIA', time:'08:00', lat:42.00175, lon:12.65890},
-  {name:'EWA SALARIA', time:'09:30', lat:42.05290, lon:12.61290},
-  {name:'RISTORANTE LA VALLE', time:'11:00', lat:42.62610, lon:13.29020}
-];
-function addTiles(map){
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
-}
-const map = L.map('map').setView([42.29,12.95], 9); addTiles(map);
-stops.forEach(s=>L.marker([s.lat,s.lon]).addTo(map).bindPopup(`<b>${s.time} — ${s.name}</b>`));
-const route = stops.map(s=>[s.lat,s.lon]);
-L.polyline(route, {weight:5}).addTo(map);
-map.fitBounds(route, {padding:[35,35]});
-const z1=L.map('zoom1').setView([42.405,13.08],11); addTiles(z1); L.marker([42.416,13.08]).addTo(z1).bindPopup('Gole del Velino / Antrodoco');
-const z2=L.map('zoom2').setView([42.63,13.29],11); addTiles(z2); L.marker([42.626,13.290]).addTo(z2).bindPopup('Amatrice / Ristorante La Valle');
+const stops = [{"name": "CASA", "time": "7:30", "addr": "Via Palombarese, 746, Fonte Nuova (RM)", "lat": 41.9954429, "lng": 12.6659791}, {"name": "BMW SALARIA", "time": "8:00", "addr": "Via Salaria, 1268, Roma", "lat": 41.9889, "lng": 12.5152}, {"name": "EWA SALARIA", "time": "9:30", "addr": "Via Salaria per Roma, Rieti", "lat": 42.3318264, "lng": 12.8583276}, {"name": "RISTORANTE LA VALLE", "time": "11:00", "addr": "Via Salaria, 128, Località Torrita, Amatrice", "lat": 42.6045, "lng": 13.2509}];
+const scenic = [{"title": "Gole del Velino / Antrodoco", "subtitle": "Il tratto più bello e montano della Salaria: curve, valle stretta e pareti verdi.", "lat": 42.424, "lng": 13.08, "img": "https://www.lazionascosto.it/wp-content/uploads/2015/09/gole-del-velino.jpg", "link": "https://www.google.com/maps/search/Gole+del+Velino+Antrodoco"}, {"title": "Lago di Scandarello", "subtitle": "Vista scenica vicino Amatrice, con Monti della Laga sullo sfondo.", "lat": 42.609, "lng": 13.234, "img": "https://www.lazionascosto.it/wp-content/uploads/2016/04/lago-di-scandarello.jpg", "link": "https://www.google.com/maps/search/Lago+di+Scandarello"}, {"title": "Monti della Laga / Amatrice", "subtitle": "Arrivo in zona montana: panorama aperto e strade perfette da moto.", "lat": 42.623, "lng": 13.29, "img": "https://www.visitlazio.com/wp-content/uploads/2022/05/Parco-nazionale-del-Gran-Sasso-e-Monti-della-Laga-ad-Accumuli-ed-Amatrice.jpg", "link": "https://www.google.com/maps/search/Monti+della+Laga+Amatrice"}];
+const map = L.map('map', { scrollWheelZoom: true, zoomControl: true });
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; OpenStreetMap'
+}).addTo(map);
+
+const routeLatLngs = stops.map(s => [s.lat, s.lng]);
+const bounds = L.latLngBounds(routeLatLngs);
+map.fitBounds(bounds, { padding: [24, 24] });
+
+stops.forEach((s, i) => {
+  const marker = L.marker([s.lat, s.lng]).addTo(map);
+  marker.bindPopup(`<div class="popup-title">${i+1}. ${s.name}</div><div class="popup-time">${s.time}</div><div>${s.addr}</div>`);
+});
+
+scenic.forEach(p => {
+  const circle = L.circleMarker([p.lat, p.lng], {
+    radius: 8,
+    weight: 3,
+    color: '#dc2626',
+    fillColor: '#f97316',
+    fillOpacity: .9
+  }).addTo(map);
+  circle.bindPopup(`<div class="popup-title">🏔️ ${p.title}</div><div>${p.subtitle}</div><img class="popup-img" src="${p.img}" onerror="this.style.display='none'"><br><a target="_blank" href="${p.link}">Apri punto panoramico</a>`);
+});
+
+// Try OSRM route. If blocked/unavailable, show a clean fallback polyline.
+const coords = stops.map(s => `${s.lng},${s.lat}`).join(';');
+fetch(`https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson`)
+  .then(r => r.json())
+  .then(data => {
+    if (data.routes && data.routes[0]) {
+      const line = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+      L.polyline(line, { color: '#dc2626', weight: 5, opacity: .9 }).addTo(map);
+      map.fitBounds(L.latLngBounds(line), { padding: [20, 20] });
+    } else {
+      L.polyline(routeLatLngs, { color: '#dc2626', weight: 5, opacity: .7, dashArray: '8,8' }).addTo(map);
+    }
+  })
+  .catch(() => {
+    L.polyline(routeLatLngs, { color: '#dc2626', weight: 5, opacity: .7, dashArray: '8,8' }).addTo(map);
+  });
 </script>
 </body>
 </html>
