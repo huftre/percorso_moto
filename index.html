@@ -1,10 +1,36 @@
 <!doctype html>
 <html lang="it">
 <head>
+<!-- ==========================================================
+     FILE HTML COMMENTATO
+     Evento: 30ª MOTOAMATRICIANA
+     Come modificare:
+     - Titolo pagina: cerca "30ª MOTOAMATRICIANA"
+     - Link Google Maps: cerca "google_route" nei commenti vicino al pulsante rosso
+     - Mappa incorporata: cerca "iframe"
+     - Tappe: cerca "Tappe e orari"
+     - Foto paesaggi: cerca "Da fotografare"
+     - Tratti biker: cerca "Per il biker"
+     - Regolamento: cerca "REGOLAMENTO"
+     ========================================================== -->
+
 <meta charset="utf-8">
+
+<!-- VIEWPORT: serve per rendere la pagina leggibile su iPhone e smartphone -->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- TITOLO DELLA SCHEDA DEL BROWSER: modifica qui se vuoi cambiare il nome che appare nella scheda -->
 <title>30ª MOTOAMATRICIANA</title>
+
 <style>
+/* ==========================================================
+   COLORI GENERALI DEL SITO
+   Modifica questi valori per cambiare colori principali:
+   --red = pulsante rosso
+   --blue = pulsante blu/link
+   --bg = sfondo pagina
+   --card = sfondo delle schede bianche
+   ========================================================== */
 :root {
   --bg:#f3f4f6;
   --text:#111827;
@@ -14,14 +40,25 @@
   --blue:#2563eb;
   --border:#e5e7eb;
   --orange:#ea580c;
+  --green:#15803d;
 }
+
+/* RESET BASE: evita margini strani del browser */
 * { box-sizing:border-box; }
+
+/* CORPO PAGINA: font stile iPhone/Safari e colore sfondo */
 body {
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   background:var(--bg);
   color:var(--text);
 }
+
+/* ==========================================================
+   HEADER / INTESTAZIONE
+   Qui viene mostrato il titolo grande con foto di sfondo.
+   Per cambiare foto header, sostituisci l'URL dentro background url(...)
+   ========================================================== */
 .hero {
   padding:42px 18px 34px;
   color:white;
@@ -31,6 +68,8 @@ body {
   background-size:cover;
   background-position:center;
 }
+
+/* TITOLO PRINCIPALE: modifica dimensione, maiuscolo o spaziatura qui */
 .hero h1 {
   font-size:36px;
   line-height:1.05;
@@ -38,12 +77,16 @@ body {
   letter-spacing:.3px;
   text-transform:uppercase;
 }
+
+/* AREA BOTTONI SOTTO IL TITOLO */
 .buttons {
   display:flex;
   flex-direction:column;
   gap:12px;
   margin-top:24px;
 }
+
+/* STILE GENERALE DEI BOTTONI */
 .btn {
   display:block;
   text-align:center;
@@ -54,14 +97,25 @@ body {
   font-weight:800;
   font-size:17px;
 }
+
+/* COLORE PULSANTE GOOGLE MAPS */
 .btn.red { background:var(--red); }
+
+/* COLORE PULSANTE PUNTI PANORAMICI */
 .btn.blue { background:var(--blue); }
+
+/* CONTENITORE GENERALE DEL CONTENUTO */
 main {
   max-width:980px;
   margin:0 auto;
   padding:14px;
 }
-.map-card, .card, .photo-card, .biker-card {
+
+/* ==========================================================
+   SCHEDE GENERALI
+   Questi stili si applicano a mappa, tappe, foto, biker e regolamento.
+   ========================================================== */
+.map-card, .card, .photo-card, .biker-card, .rules-card {
   background:var(--card);
   border-radius:20px;
   overflow:hidden;
@@ -69,32 +123,51 @@ main {
   border:1px solid rgba(0,0,0,.05);
   margin-bottom:18px;
 }
+
+/* ==========================================================
+   MAPPA GOOGLE INCORPORATA
+   Altezza modificabile: cambia height.
+   Su iPhone 360px, su desktop 520px.
+   ========================================================== */
 .map-wrap {
   width:100%;
   height:420px;
   background:#e5e7eb;
 }
+
 .map-wrap iframe {
   width:100%;
   height:100%;
   border:0;
   display:block;
 }
+
+/* Testo sotto la mappa */
 .map-note {
   padding:14px 16px;
   color:var(--muted);
   font-size:15px;
   line-height:1.35;
 }
+
+/* Schede semplici come Tappe e Note */
 .card {
   padding:18px;
 }
+
+/* Titoli delle sezioni */
 h2 {
   margin:0 0 14px;
   font-size:24px;
   text-transform:uppercase;
   letter-spacing:.4px;
 }
+
+/* ==========================================================
+   TAPPE E ORARI
+   Per modificare le tappe, cambia il contenuto HTML nella sezione
+   "Tappe e orari" oppure modifica la lista generata.
+   ========================================================== */
 .stop {
   display:grid;
   grid-template-columns:72px 1fr;
@@ -103,7 +176,10 @@ h2 {
   border-bottom:1px solid var(--border);
   align-items:center;
 }
+
 .stop:last-child { border-bottom:none; }
+
+/* Box nero con orario */
 .time {
   height:54px;
   border-radius:16px;
@@ -115,21 +191,27 @@ h2 {
   font-size:20px;
   font-weight:900;
 }
+
 .stop strong {
   display:block;
   font-size:19px;
   margin-bottom:4px;
 }
+
 .stop span {
   color:var(--muted);
   font-size:15px;
 }
+
+/* Testo delle note percorso */
 .route-text {
   color:#4b5563;
   line-height:1.45;
   font-size:16px;
   margin:0;
 }
+
+/* Box arancione di avviso */
 .warning {
   margin-top:14px;
   background:#fff7ed;
@@ -139,17 +221,26 @@ h2 {
   padding:14px;
   line-height:1.35;
 }
+
+/* Griglie delle foto e dei punti biker */
 .photos, .biker-grid {
   display:grid;
   grid-template-columns:1fr;
   gap:18px;
 }
+
+/* Titoli grandi: DA FOTOGRAFARE, PER IL BIKER, REGOLAMENTO */
 .section-title {
   margin:24px 0 12px;
   font-size:26px;
   font-weight:900;
   text-transform:uppercase;
 }
+
+/* ==========================================================
+   FOTO PAESAGGI
+   Per cambiare altezza foto: modifica height in .photo-link img
+   ========================================================== */
 .photo-link {
   display:block;
   min-height:220px;
@@ -158,12 +249,15 @@ h2 {
   text-decoration:none;
   color:var(--blue);
 }
+
 .photo-link img {
   width:100%;
   height:240px;
   object-fit:cover;
   display:block;
 }
+
+/* Messaggio mostrato se una foto non viene caricata */
 .noimg-text {
   display:none;
   position:absolute;
@@ -174,32 +268,43 @@ h2 {
   text-align:center;
   font-weight:800;
 }
+
 .noimg .noimg-text {
   display:flex;
 }
+
 .photo-body, .biker-card {
   padding:16px 18px 18px;
 }
+
 .photo-body h3, .biker-card h3 {
   margin:0 0 8px;
   font-size:22px;
 }
+
 .photo-body p, .biker-card p {
   margin:0 0 14px;
   color:#4b5563;
   font-size:16px;
   line-height:1.4;
 }
+
 .photo-body a, .biker-card a {
   color:var(--blue);
   text-decoration:none;
   font-weight:800;
   font-size:16px;
 }
+
+/* ==========================================================
+   SEZIONE PER IL BIKER
+   Schede con bordo arancione e tag.
+   ========================================================== */
 .biker-card {
   position:relative;
   border-left:6px solid var(--orange);
 }
+
 .biker-tag {
   display:inline-block;
   margin-bottom:10px;
@@ -212,7 +317,68 @@ h2 {
   font-weight:900;
   text-transform:uppercase;
 }
+
+/* ==========================================================
+   REGOLAMENTO
+   Qui definisco lo stile della sezione finale con regole.
+   ========================================================== */
+.rules-card {
+  padding:18px;
+  border-left:6px solid var(--green);
+}
+
+.rules-intro {
+  margin:0 0 16px;
+  color:#4b5563;
+  font-size:16px;
+  line-height:1.45;
+}
+
+.rule-block {
+  padding:14px 0;
+  border-top:1px solid var(--border);
+}
+
+.rule-block:first-of-type {
+  border-top:none;
+  padding-top:0;
+}
+
+.rule-block h3 {
+  margin:0 0 10px;
+  font-size:20px;
+}
+
+.rule-block ul {
+  margin:0;
+  padding-left:22px;
+}
+
+.rule-block li {
+  margin:8px 0;
+  line-height:1.4;
+  color:#374151;
+}
+
+.final-warning {
+  margin-top:16px;
+  padding:16px;
+  border-radius:16px;
+  background:#fee2e2;
+  border:1px solid #fecaca;
+  color:#7f1d1d;
+  font-weight:900;
+  line-height:1.35;
+  text-transform:uppercase;
+}
+
 .footer-space { height:18px; }
+
+/* ==========================================================
+   VERSIONE DESKTOP
+   Da 800px in su: bottoni affiancati, mappa più alta,
+   foto su 3 colonne e biker su 2 colonne.
+   ========================================================== */
 @media (min-width:800px) {
   .hero { padding:52px 30px 42px; }
   .hero h1 { font-size:52px; }
@@ -223,6 +389,11 @@ h2 {
   .biker-grid { grid-template-columns:repeat(2,1fr); }
   .photo-link img { height:190px; }
 }
+
+/* ==========================================================
+   VERSIONE IPHONE / SCHERMI PICCOLI
+   Modifica qui dimensioni titolo, mappa e foto su smartphone.
+   ========================================================== */
 @media (max-width:430px) {
   main { padding:12px 10px; }
   .hero { padding-top:44px; }
@@ -232,9 +403,20 @@ h2 {
 }
 </style>
 </head>
+
 <body>
+<!-- ==========================================================
+     HEADER
+     Titolo principale della pagina.
+     Per cambiare il titolo sostituisci "30ª MOTOAMATRICIANA".
+     ========================================================== -->
 <section class="hero">
   <h1>30ª MOTOAMATRICIANA</h1>
+
+  <!-- BOTTONI HEADER
+       Primo bottone: apre Google Maps con il percorso reale.
+       Secondo bottone: porta alla sezione "Da fotografare".
+       Per cambiare il link del percorso modifica href del bottone rosso. -->
   <div class="buttons">
     <a class="btn red" href="https://www.google.com/maps/dir/?api=1&origin=BMW%20Salaria%20Roma&waypoints=EWA%20Salaria%20Rieti&destination=Ristorante%20La%20Valle%20Amatrice&travelmode=driving" target="_blank">Apri percorso reale in Google Maps</a>
     <a class="btn blue" href="#foto">Vedi punti panoramici</a>
@@ -242,6 +424,12 @@ h2 {
 </section>
 
 <main>
+  <!-- ==========================================================
+       MAPPA
+       Questa è una mappa Google incorporata.
+       Per cambiare partenza/arrivo della mappa, modifica l'attributo src dell'iframe.
+       Per il percorso completo con tappe, usare il pulsante rosso sopra.
+       ========================================================== -->
   <section class="map-card">
     <div class="map-wrap">
       <iframe
@@ -256,9 +444,15 @@ h2 {
     </div>
   </section>
 
+  <!-- ==========================================================
+       TAPPE E ORARI
+       Per aggiungere una tappa: copia un blocco .stop e cambia orario, nome e descrizione.
+       Per eliminare una tappa: elimina il blocco .stop corrispondente.
+       ========================================================== -->
   <section class="card">
     <h2>📍 Tappe e orari</h2>
     
+    <!-- TAPPA: per cambiare orario/nome/descrizione modifica la lista tappe nella sezione dati in alto -->
     <div class="stop">
       <div class="time">8:00</div>
       <div>
@@ -267,6 +461,7 @@ h2 {
       </div>
     </div>
     
+    <!-- TAPPA: per cambiare orario/nome/descrizione modifica la lista tappe nella sezione dati in alto -->
     <div class="stop">
       <div class="time">9:30</div>
       <div>
@@ -275,6 +470,7 @@ h2 {
       </div>
     </div>
     
+    <!-- TAPPA: per cambiare orario/nome/descrizione modifica la lista tappe nella sezione dati in alto -->
     <div class="stop">
       <div class="time">11:00</div>
       <div>
@@ -285,6 +481,11 @@ h2 {
     
   </section>
 
+  <!-- ==========================================================
+       NOTE PERCORSO
+       Testo descrittivo generale del giro.
+       Modifica direttamente il testo nel paragrafo qui sotto.
+       ========================================================== -->
   <section class="card">
     <h2>🧭 Note percorso</h2>
     <p class="route-text">
@@ -297,9 +498,15 @@ h2 {
     </div>
   </section>
 
+  <!-- ==========================================================
+       DA FOTOGRAFARE
+       Sezione dedicata ai punti panoramici e fotografici.
+       Per cambiare foto/titolo/testo/link, modifica le schede photo-card.
+       ========================================================== -->
   <h2 id="foto" class="section-title">📸 Da fotografare</h2>
   <section class="photos">
     
+      <!-- FOTO PAESAGGIO: per modificarla cambia titolo, testo, link immagine e link originale nella sezione dati in alto -->
       <article class="photo-card">
         <a href="https://commons.wikimedia.org/wiki/File:Summer%27s_rainbow_at_Antrodoco_(Italy)_(6100628169).jpg" target="_blank" class="photo-link">
           <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Summer%27s_rainbow_at_Antrodoco_(Italy)_(6100628169).jpg?width=900" alt="Gole del Velino / Antrodoco" loading="lazy"
@@ -313,6 +520,7 @@ h2 {
         </div>
       </article>
     
+      <!-- FOTO PAESAGGIO: per modificarla cambia titolo, testo, link immagine e link originale nella sezione dati in alto -->
       <article class="photo-card">
         <a href="https://commons.wikimedia.org/wiki/File:LagoDiScandarello.jpg" target="_blank" class="photo-link">
           <img src="https://commons.wikimedia.org/wiki/Special:FilePath/LagoDiScandarello.jpg?width=900" alt="Lago di Scandarello" loading="lazy"
@@ -326,6 +534,7 @@ h2 {
         </div>
       </article>
     
+      <!-- FOTO PAESAGGIO: per modificarla cambia titolo, testo, link immagine e link originale nella sezione dati in alto -->
       <article class="photo-card">
         <a href="https://it.wikipedia.org/wiki/File:Catena_Monti_Della_Laga_(versante_Amatriciano).jpg" target="_blank" class="photo-link">
           <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Catena_Monti_Della_Laga_(versante_Amatriciano).jpg?width=900" alt="Monti della Laga / Amatrice" loading="lazy"
@@ -341,9 +550,15 @@ h2 {
     
   </section>
 
+  <!-- ==========================================================
+       PER IL BIKER
+       Sezione dedicata ai tratti interessanti da guidare in moto:
+       curve, rettilinei, strade panoramiche.
+       ========================================================== -->
   <h2 class="section-title">🏍️ Per il biker</h2>
   <section class="biker-grid">
     
+      <!-- PUNTO PER IL BIKER: per modificarlo cambia tag, titolo, descrizione e link Google Maps nella sezione dati in alto -->
       <article class="biker-card">
         <div class="biker-tag">Scorrevole</div>
         <h3>Salaria dopo Rieti</h3>
@@ -351,6 +566,7 @@ h2 {
         <a href="https://www.google.com/maps/search/Salaria+dopo+Rieti" target="_blank">Apri tratto su Google Maps</a>
       </article>
     
+      <!-- PUNTO PER IL BIKER: per modificarlo cambia tag, titolo, descrizione e link Google Maps nella sezione dati in alto -->
       <article class="biker-card">
         <div class="biker-tag">Curve</div>
         <h3>Rieti → Antrodoco</h3>
@@ -358,6 +574,7 @@ h2 {
         <a href="https://www.google.com/maps/dir/Rieti/Antrodoco" target="_blank">Apri tratto su Google Maps</a>
       </article>
     
+      <!-- PUNTO PER IL BIKER: per modificarlo cambia tag, titolo, descrizione e link Google Maps nella sezione dati in alto -->
       <article class="biker-card">
         <div class="biker-tag">Tecnico</div>
         <h3>Gole del Velino</h3>
@@ -365,6 +582,7 @@ h2 {
         <a href="https://www.google.com/maps/search/Gole+del+Velino+Antrodoco" target="_blank">Apri tratto su Google Maps</a>
       </article>
     
+      <!-- PUNTO PER IL BIKER: per modificarlo cambia tag, titolo, descrizione e link Google Maps nella sezione dati in alto -->
       <article class="biker-card">
         <div class="biker-tag">Panoramico</div>
         <h3>Verso Amatrice</h3>
@@ -374,7 +592,96 @@ h2 {
     
   </section>
 
+  <!-- ==========================================================
+       REGOLAMENTO
+       Sezione finale con regole dell'uscita.
+       Per modificare una regola, cambia il testo dentro i singoli <li>.
+       Per aggiungere una categoria, copia un intero blocco .rule-block.
+       ========================================================== -->
+  <h2 class="section-title">📌 Regolamento</h2>
+  <section class="rules-card">
+    <p class="rules-intro">
+      L’uscita è pensata per divertirsi insieme, guidare in sicurezza e godersi il percorso.
+      Ogni partecipante resta responsabile della propria guida, della propria moto e delle proprie decisioni.
+    </p>
+
+    <!-- REGOLE DI BASE -->
+    <div class="rule-block">
+      <h3>✅ Regole di base</h3>
+      <ul>
+        <li>Gli organizzatori non si assumono responsabilità per incidenti, danni a persone o cose, violazioni del Codice della Strada o comportamenti imprudenti tenuti dai partecipanti durante l’evento.</li>
+        <li>La partecipazione è volontaria: ognuno è responsabile di sé stesso, della propria moto e delle proprie decisioni.</li>
+        <li>La sicurezza del gruppo viene prima della fretta: non stiamo facendo qualifiche, stiamo andando a divertirci.</li>
+        <li>Nessuno deve sentirsi obbligato a tenere un ritmo superiore alle proprie capacità: ognuno guida al proprio passo.</li>
+      </ul>
+    </div>
+
+    <!-- FORMAZIONE DEL GRUPPO -->
+    <div class="rule-block">
+      <h3>🏍️ Formazione</h3>
+      <ul>
+        <li>È presente un apripista, che non deve essere superato.</li>
+        <li>Le staffette aiutano nella gestione del gruppo: va lasciato loro spazio nella carreggiata per poter avanzare e tornare indietro.</li>
+        <li>Tenere la destra e procedere ordinati, preferibilmente in colonna per uno quando necessario.</li>
+        <li>La scopetta chiude la fila e si occupa di chi rimane più indietro o ha bisogno di assistenza.</li>
+      </ul>
+    </div>
+
+    <!-- COMPORTAMENTO DURANTE LA GUIDA -->
+    <div class="rule-block">
+      <h3>🚦 Durante la guida</h3>
+      <ul>
+        <li>Mantenere sempre una distanza di sicurezza adeguata.</li>
+        <li>Evitare sorpassi all’interno del gruppo, salvo reale necessità.</li>
+        <li>Guidare in modo fluido, prevedibile e rispettoso degli altri.</li>
+        <li>Segnalare ostacoli o situazioni particolari agli altri motociclisti, ripetendo il gesto di chi precede verso chi segue.</li>
+        <li>Restare ordinati e tendenzialmente sulla destra.</li>
+      </ul>
+    </div>
+
+    <!-- SEPARAZIONE DAL GRUPPO -->
+    <div class="rule-block">
+      <h3>📍 Se ci si separa dal gruppo</h3>
+      <ul>
+        <li>Niente rincorse e niente manovre rischiose per recuperare.</li>
+        <li>Chi resta indietro raggiunge il successivo punto concordato con il proprio passo.</li>
+        <li>Il gruppo si ricompatta nei punti stabiliti.</li>
+      </ul>
+    </div>
+
+    <!-- RISPETTO -->
+    <div class="rule-block">
+      <h3>🤝 Rispetto</h3>
+      <ul>
+        <li>Rispetto per tutti gli utenti della strada.</li>
+        <li>Rispetto per chi ha meno esperienza.</li>
+        <li>Rispetto per chi ha più esperienza, ma mantiene comunque il proprio passo.</li>
+        <li>Collaborazione e spirito di gruppo sempre.</li>
+      </ul>
+    </div>
+
+    <!-- COMPORTAMENTI NON AMMESSI -->
+    <div class="rule-block">
+      <h3>🚫 Non sono ammessi</h3>
+      <ul>
+        <li>Sorpassi rischiosi.</li>
+        <li>Impennate, stunt o manovre pericolose.</li>
+        <li>Gare tra partecipanti.</li>
+        <li>Guida sotto effetto di alcol o sostanze.</li>
+        <li>Comportamenti che possano mettere in difficoltà il gruppo.</li>
+      </ul>
+    </div>
+
+    <!-- AVVISO FINALE -->
+    <div class="final-warning">
+      Gli organizzatori possono allontanare chi compromette la sicurezza o la serenità dell’uscita.
+    </div>
+  </section>
+
+  <!-- SPAZIO FINALE: serve solo per lasciare aria in fondo alla pagina -->
   <div class="footer-space"></div>
 </main>
+
+<!-- FINE FILE HTML -->
 </body>
 </html>
